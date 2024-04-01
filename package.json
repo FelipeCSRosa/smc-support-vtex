@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "node-sass": "^9.0.0"
+  },
+  "scripts": {
+    "watch": "sass --watch styles/sass:styles/css",
+    "compress": "{{ run command to compress files }}",
+    "postcompress": "{{ executes AFTER `compress` script }}"
+  }
+}

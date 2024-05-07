@@ -4,15 +4,10 @@
   "version": "0.0.0",
   "defaultLocale": "en-US",
   "builders": {
-    "assets": "0.x",
-    "node": "6.x",
     "styles": "2.x",
-    "messages": "1.x",
     "store": "0.x",
-    "checkout-ui-custom": "0.x",
-    "react": "3.x",
-    "admin": "0.x",
-    "graphql": "1.x"
+    "docs": "0.x",
+    "assets": "0.x"
   },
   "scripts": {
     "postreleasy": "vtex publish --verbose"

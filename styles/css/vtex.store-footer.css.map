@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":[],"names":[],"mappings":"","file":"vtex.store-footer.css"}
+{"version":3,"sourceRoot":"","sources":["../sass/vtex.store-footer.scss"],"names":[],"mappings":"AAAA;EACE;EACA","file":"vtex.store-footer.css"}

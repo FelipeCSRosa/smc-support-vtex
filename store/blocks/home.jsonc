@@ -1,5 +1,11 @@
 {
   "store.home": {
-    "blocks": []
+    "children": ["flex-layout.row#home"]
+  },
+  "flex-layout.row#home": {
+    "children": ["flex-layout.col#home"]
+  },
+  "flex-layout.col#home": {
+    "children": ["order-cards", "filter-order"]
   }
 }

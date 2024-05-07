@@ -1,0 +1,196 @@
+.cards-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 28px;
+}
+@media (max-width: 1025px) {
+  .cards-container {
+    flex-direction: column;
+  }
+}
+
+.card-container {
+  width: 100%;
+  border: 1px solid #dddddd;
+}
+
+.card-title {
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28.13px;
+  text-align: left;
+  color: #000000;
+  margin: 0 0 9px;
+}
+
+/* Card Order */
+.card-order-totalizers {
+  padding: 18px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.card-order-totalizers-values {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.card-order-totalizer-title {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+  color: #000000;
+  margin: 0 0 3px;
+}
+
+.card-order-totalizer-title span {
+  font-size: 12px;
+}
+
+.card-order-totalizer-value {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  text-align: left;
+  color: #000000;
+  margin: 0;
+}
+
+.card-order-button {
+  width: 100%;
+  max-width: 178px;
+  height: 45px;
+  border: none;
+  margin-left: auto;
+  background-color: #007bc2;
+  border-radius: 3px;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 18.75px;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.card-order-button:hover {
+  opacity: 0.8;
+}
+
+.card-order-actions {
+  display: flex;
+  gap: 13px;
+  padding: 12px 19px;
+}
+
+.card-order-action {
+  max-width: 73px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.card-order-action-title {
+  font-family: Roboto;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 12px;
+  text-align: center;
+  color: #7a7a7a;
+  margin: 0;
+}
+/* Card Order */
+
+/* Card Search */
+.card-search-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-search-top {
+  padding: 18px 18px 24px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.card-search-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  padding: 1px 1px 1px 0;
+}
+
+.card-search-input {
+  flex: 1;
+  height: 38px;
+  padding: 0;
+  border: none;
+  padding-inline: 16px;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.06px;
+  text-align: left;
+  color: #7a7a7a;
+}
+.card-search-input:focus {
+  outline: none;
+}
+
+.card-search-button {
+  width: 98px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007bc2;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  border-radius: 3px;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: left;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.card-search-button:hover {
+  opacity: 0.8;
+}
+
+.card-search-bottom {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 12px 19px;
+}
+
+.card-search-check {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  text-align: left;
+  color: #007bc2;
+  text-decoration: underline;
+}
+/* Card Search */

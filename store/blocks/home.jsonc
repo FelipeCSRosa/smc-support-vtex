@@ -6,6 +6,6 @@
     "children": ["flex-layout.col#home"]
   },
   "flex-layout.col#home": {
-    "children": ["order-cards", "filter-order"]
+    "children": ["order-cards", "filter-orderby", "table"]
   }
 }

@@ -192,5 +192,6 @@
   text-align: left;
   color: #007bc2;
   text-decoration: underline;
+  cursor: pointer;
 }
 /* Card Search */

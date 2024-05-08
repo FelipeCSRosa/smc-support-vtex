@@ -11,7 +11,10 @@
   "order-cards": {
     "component": "Cards"
   },
-  "filter-order": {
+  "filter-orderby": {
     "component": "FilterOrderBy"
+  },
+  "table": {
+    "component": "Table"
   }
 }

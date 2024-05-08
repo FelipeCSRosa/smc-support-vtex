@@ -1,15 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { canUseDOM } from "vtex.render-runtime";
 import "./global.css";
 
 const FilterOrderBy = () => {
   const [showFilterOptions, setShowFilterOptions] = useState(false);
 
+  useEffect(() => {
+    const handleClick = () => {
+      setShowFilterOptions(false);
+    };
+
+    if (canUseDOM) {
+      window.addEventListener("click", handleClick);
+    }
+
+    return () => {
+      if (canUseDOM) {
+        window.removeEventListener("click", handleClick);
+      }
+    };
+  }, [canUseDOM]);
+
   return (
-    <div className="filter-orderby-container">
+    <div
+      className="filter-orderby-container"
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
       <div className="filter-wrapper">
         <div
           className="filter-container"
-          onClick={() => setShowFilterOptions(true)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowFilterOptions(true);
+          }}
         >
           <svg
             width="20"
@@ -51,7 +76,10 @@ const FilterOrderBy = () => {
           </div>
           <div
             className="filter-options-close-icon"
-            onClick={() => setShowFilterOptions(false)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowFilterOptions(false);
+            }}
           >
             <svg
               width="16"

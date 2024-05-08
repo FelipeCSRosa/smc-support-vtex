@@ -1,0 +1,262 @@
+.table-wrapper {
+  overflow: auto;
+}
+
+.table-container {
+  min-width: 1178px;
+}
+
+.table-header {
+  display: flex;
+  height: 61px;
+  background-color: #e5e5e5;
+}
+
+.table-header-item {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #000000;
+  border: 1px solid #cccccc;
+}
+
+.table-row {
+  display: flex;
+  height: 60px;
+}
+.table-row:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+.table-row:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.table-row-item {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
+  color: #000000;
+  border: 1px solid #cccccc;
+}
+
+.table-row-item-quantity input {
+  width: 41px;
+  height: 30px;
+  border: 1px solid #dddddd;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #000000;
+}
+.table-row-item-quantity button {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.table-row-item-price button {
+  background-color: #001f60;
+  border: none;
+  border-radius: 3px;
+  width: 90px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 14.06px;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.table-item-buttons button {
+  border: none;
+  width: 100%;
+  height: 22px;
+  border-radius: 3px;
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 15.23px;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.table-item-buttons button.add-to-cart {
+  background-color: #007bc2;
+}
+.table-item-buttons button.technical-infos {
+  background-color: #7a7a7a;
+}
+
+.table-item-selected {
+  padding-left: 5px;
+  width: 27px;
+}
+.table-item-quantity {
+  width: 96px;
+}
+.table-item-code {
+  width: 96px;
+}
+.table-item-partnumber {
+  width: 135px;
+}
+.table-item-description {
+  width: 219px;
+}
+.table-item-measurement {
+  width: 90px;
+}
+.table-item-deadline {
+  width: 101px;
+}
+.table-item-price {
+  width: 156px;
+}
+.table-item-total {
+  width: 92px;
+}
+.table-item-buttons {
+  padding: 0 8px;
+  width: 166px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+.table-row-item-quantity {
+  padding-left: 0;
+  justify-content: center;
+  gap: 2px;
+}
+.table-row-item-price {
+  padding-left: 6px;
+  padding-right: 4px;
+  justify-content: space-between;
+}
+.table-row-item-total {
+  font-weight: 600;
+}
+.table-row-item.table-item-description {
+  padding-right: 39px;
+}
+
+/* Price Details */
+.price-details-wrapper {
+  position: fixed;
+  width: 12px;
+  overflow: visible;
+}
+
+.price-details-container {
+  width: 441px;
+  height: 113px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 30px 0px #00000026;
+  background-color: #ffffff;
+  position: relative;
+  margin-left: -175px;
+  padding: 35px 22px 16px 17px;
+}
+
+.price-details-speech-bubble {
+  width: 12px;
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.price-details-close-icon {
+  position: absolute;
+  top: 8px;
+  right: 11px;
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+}
+
+.price-details-table-header {
+  height: 35px;
+  background-color: #e5e5e5;
+  display: flex;
+}
+
+.price-details-table-header-item {
+  border: 1px solid #dddddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 14.06px;
+  text-align: center;
+  color: #000000;
+}
+
+.price-details-table-body {
+  height: 26px;
+  display: flex;
+}
+
+.price-details-table-body-item {
+  border: 1px solid #dddddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 30px;
+  text-align: center;
+  color: #000000;
+}
+
+.price-details-table-item-ipi {
+  width: 48px;
+}
+.price-details-table-item-icms-percent {
+  width: 57px;
+}
+.price-details-table-item-icms-base {
+  width: 80px;
+}
+.price-details-table-item-icms-value {
+  width: 80px;
+}
+.price-details-table-item-mya {
+  width: 62px;
+}
+.price-details-table-item-total {
+  width: 80px;
+}
+/* Price Details */

@@ -1,6 +1,7 @@
 {
   "extends": "@vtex/tsconfig",
   "compilerOptions": {
+    "lib": ["es5", "es6", "dom"],
     "jsx": "react"
   },
   "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"]

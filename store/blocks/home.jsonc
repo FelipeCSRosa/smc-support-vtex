@@ -3,6 +3,9 @@
     "children": ["flex-layout.row#home"]
   },
   "flex-layout.row#home": {
+    "props": {
+      "blockClass": "home"
+    },
     "children": ["flex-layout.col#home"]
   },
   "flex-layout.col#home": {

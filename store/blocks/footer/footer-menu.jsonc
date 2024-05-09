@@ -1,0 +1,338 @@
+{
+  "responsive-layout.mobile#links-footer": {
+    "children": ["flex-layout.col#footer-menu-mobile"]
+  },
+  "flex-layout.col#footer-menu-mobile": {
+    "children": [
+      "menu-item#mobile-contact-us",
+      "menu-item#mobile-conthelp",
+      "menu-item#mobile-institucional"
+    ],
+    "props": {
+      "blockClass": "footer-menu-mobile",
+      "preserveLayoutOnMobile": true
+    }
+  },
+
+  "menu-item#mobile-contact-us": {
+    "props": {
+      "id": "",
+      "type": "custom",
+      "blockClass": "link-footer",
+      "highlight": false,
+      "itemProps": {
+        "type": "internal",
+        "href": "/#",
+        "noFollow": false,
+        "tagTitle": "ATENDIMENTO",
+        "text": "ATENDIMENTO"
+      }
+    },
+    "blocks": ["vtex.menu@2.x:submenu.accordion#contact-us"]
+  },
+  "vtex.menu@2.x:submenu.accordion#contact-us": {
+    "children": ["menu#links-footer-contact-us"],
+    "props": {
+      "blockClass": "accordion-footer"
+    }
+  },
+
+  "menu-item#mobile-conthelp": {
+    "props": {
+      "id": "",
+      "type": "custom",
+      "blockClass": "link-footer",
+      "highlight": false,
+      "itemProps": {
+        "type": "internal",
+        "href": "/#",
+        "noFollow": false,
+        "tagTitle": "AJUDA E SUPORTE",
+        "text": "AJUDA E SUPORTE"
+      }
+    },
+    "blocks": ["vtex.menu@2.x:submenu.accordion#conthelp"]
+  },
+  "vtex.menu@2.x:submenu.accordion#conthelp": {
+    "children": ["menu#links-footer-institucional"],
+    "props": {
+      "blockClass": "accordion-footer"
+    }
+  },
+
+  "menu-item#mobile-institucional": {
+    "props": {
+      "id": "",
+      "type": "custom",
+      "blockClass": "link-footer",
+      "highlight": false,
+      "itemProps": {
+        "type": "internal",
+        "href": "/#",
+        "noFollow": false,
+        "tagTitle": "INSTITUCIONAL",
+        "text": "INSTITUCIONAL"
+      }
+    },
+    "blocks": ["vtex.menu@2.x:submenu.accordion#institucional"]
+  },
+  "vtex.menu@2.x:submenu.accordion#institucional": {
+    "children": ["menu#links-footer-institucional"],
+    "props": {
+      "blockClass": "accordion-footer"
+    }
+  },
+
+  "responsive-layout.desktop#links-footer": {
+    "children": ["flex-layout.row#links-footer"]
+  },
+  "flex-layout.row#links-footer": {
+    "children": [
+      "flex-layout.col#links-footer-contact-us",
+      "flex-layout.col#links-footer-help",
+      "flex-layout.col#links-footer-institucional"
+    ],
+    "props": {
+      "blockClass": "links-footer",
+      "colSizing": "auto"
+    }
+  },
+
+  "flex-layout.col#links-footer-contact-us": {
+    "children": [
+      "rich-text#title-link-footer-contact-us",
+      "menu#links-footer-contact-us"
+    ],
+    "props": {
+      "preventVerticalStretch": true,
+      "blockClass": "footer-links"
+    }
+  },
+  "rich-text#title-link-footer-contact-us": {
+    "props": {
+      "text": "ATENDIMENTO",
+      "blockClass": "title-link-footer"
+    }
+  },
+
+  "flex-layout.col#links-footer-help": {
+    "children": ["rich-text#title-link-footer-help", "menu#links-footer-help"],
+    "props": {
+      "preventVerticalStretch": true,
+      "blockClass": "footer-links"
+    }
+  },
+  "rich-text#title-link-footer-help": {
+    "props": {
+      "text": "ATENDIMENTO",
+      "blockClass": "title-link-footer"
+    }
+  },
+
+  "flex-layout.col#links-footer-institucional": {
+    "children": [
+      "rich-text#title-link-footer-institucional",
+      "menu#links-footer-institucional"
+    ],
+    "props": {
+      "preventVerticalStretch": true,
+      "blockClass": "footer-links"
+    }
+  },
+  "rich-text#title-link-footer-institucional": {
+    "props": {
+      "text": "INSTITUCIONAL",
+      "blockClass": "title-link-footer"
+    }
+  },
+
+  "menu#links-footer-contact-us": {
+    "props": {
+      "items": [
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "(11) 4082-0600",
+            "text": "(11) 4082-0600"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "(11) 99999-8888",
+            "text": "(11) 99999-8888"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "Fale Conosco",
+            "text": "Fale Conosco"
+          }
+        }
+      ],
+      "blockClass": ["links-footer", "cols-links", "contact-us-footer"]
+    }
+  },
+  "menu#links-footer-help": {
+    "props": {
+      "items": [
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "Minha Conta",
+            "text": "Minha Conta"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "Meus Pedidos",
+            "text": "Meus Pedidos"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "Política de Entrega",
+            "text": "Política de Entrega"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "Trocas e Devoluções",
+            "text": "Política de Entrega"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "Política de Pagamento",
+            "text": "Política de Pagamento"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "Política de Privacidade",
+            "text": "Política de Privacidade"
+          }
+        }
+      ],
+      "blockClass": ["links-footer", "cols-links"]
+    }
+  },
+  "menu#links-footer-institucional": {
+    "props": {
+      "items": [
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "SMC no Brasil",
+            "text": "SMC no Brasil"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "SMC no Mundo",
+            "text": "SMC no Mundo"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "Linha de Produtos",
+            "text": "Linha de Produtos"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "Distribuidores",
+            "text": "Distribuidores"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "Blog",
+            "text": "Blog"
+          }
+        }
+      ],
+      "blockClass": ["links-footer", "cols-links"]
+    }
+  }
+}

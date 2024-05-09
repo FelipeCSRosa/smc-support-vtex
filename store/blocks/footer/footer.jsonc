@@ -1,0 +1,163 @@
+{
+  "footer": {
+    "props": {},
+    "blocks": ["footer-layout.desktop", "footer-layout.mobile"]
+  },
+  "footer-layout.desktop": {
+    "children": ["flex-layout.row#footer-top", "flex-layout.row#footer-bottom"]
+  },
+  "footer-layout.mobile": {
+    "children": ["flex-layout.row#footer-top", "flex-layout.row#footer-bottom"]
+  },
+
+  "flex-layout.row#footer-top": {
+    "props": {
+      "preserveLayoutOnMobile": true,
+      "blockClass": "footer-top"
+    },
+    "children": [
+      "flex-layout.col#footer-top-left",
+      "flex-layout.col#footer-top-right"
+    ]
+  },
+
+  "flex-layout.col#footer-top-left": {
+    "props": {
+      "preventVerticalStretch": true,
+      "blockClass": "footer-top-left"
+    },
+    "children": [
+      "responsive-layout.mobile#links-footer",
+      "responsive-layout.desktop#links-footer"
+    ]
+  },
+
+  "flex-layout.col#footer-top-right": {
+    "props": {
+      "preventVerticalStretch": true,
+      "blockClass": "footer-top-right"
+    },
+    "children": [
+      "flex-layout.row#footer-top-icons",
+      "flex-layout.row#footer-top-logos"
+    ]
+  },
+  "flex-layout.row#footer-top-icons": {
+    "props": {
+      "preserveLayoutOnMobile": true,
+      "blockClass": "footer-top-icons"
+    },
+    "children": [
+      "image#footer-facebook-icon",
+      "image#footer-instagram-icon",
+      "image#footer-linkedin-icon",
+      "image#footer-youtube-icon"
+    ]
+  },
+  "image#footer-facebook-icon": {
+    "props": {
+      "blockClass": "social-footer",
+      "src": "https://t15903.vtexassets.com/arquivos/icon-facebook.png",
+      "link": {
+        "url": "/",
+        "openNewTab": true
+      }
+    }
+  },
+  "image#footer-instagram-icon": {
+    "props": {
+      "blockClass": "social-footer",
+      "src": "https://t15903.vtexassets.com/arquivos/icon-instagram.png",
+      "link": {
+        "url": "/",
+        "openNewTab": true
+      }
+    }
+  },
+  "image#footer-linkedin-icon": {
+    "props": {
+      "blockClass": "social-footer",
+      "src": "https://t15903.vtexassets.com/arquivos/icon-linkedin.png",
+      "link": {
+        "url": "/",
+        "openNewTab": true
+      }
+    }
+  },
+  "image#footer-youtube-icon": {
+    "props": {
+      "blockClass": "social-footer",
+      "src": "https://t15903.vtexassets.com/arquivos/icon-youtube.png",
+      "link": {
+        "url": "/",
+        "openNewTab": true
+      }
+    }
+  },
+  "flex-layout.row#footer-top-logos": {
+    "props": {
+      "preventVerticalStretch": true,
+      "blockClass": "footer-top-logos"
+    },
+    "children": [
+      "image#footer-pci-logo",
+      "image#footer-lets-encrypt-logo",
+      "image#footer-vtex-logo",
+      "image#footer-myeshop-logo"
+    ]
+  },
+  "image#footer-pci-logo": {
+    "props": {
+      "blockClass": "logo-footer",
+      "src": "https://t15903.vtexassets.com/arquivos/logo-pci.png",
+      "link": {
+        "url": "/",
+        "openNewTab": true
+      }
+    }
+  },
+  "image#footer-lets-encrypt-logo": {
+    "props": {
+      "blockClass": "logo-footer",
+      "src": "https://t15903.vtexassets.com/arquivos/logo-lets-encrypt.png",
+      "link": {
+        "url": "/",
+        "openNewTab": true
+      }
+    }
+  },
+  "image#footer-vtex-logo": {
+    "props": {
+      "blockClass": "logo-footer",
+      "src": "https://t15903.vtexassets.com/arquivos/logo-vtex.png",
+      "link": {
+        "url": "/",
+        "openNewTab": true
+      }
+    }
+  },
+  "image#footer-myeshop-logo": {
+    "props": {
+      "blockClass": "logo-footer",
+      "src": "https://t15903.vtexassets.com/arquivos/logo-myeshop.png",
+      "link": {
+        "url": "/",
+        "openNewTab": true
+      }
+    }
+  },
+
+  "flex-layout.row#footer-bottom": {
+    "props": {
+      "preserveLayoutOnMobile": true,
+      "blockClass": "footer-bottom"
+    },
+    "children": ["rich-text#footer-legal-text"]
+  },
+  "rich-text#footer-legal-text": {
+    "props": {
+      "text": "As imagens dos produtos são meramente ilustrativas. Todos os preços e condições comerciais estão sujeitos a alteração sem aviso prévio.\n© 2023, SMC Brasil. Av. Piraporinha, 777 – Jd. Planalto – São Bernardo do Campo – SP – Cep: 09891-001",
+      "blockClass": "footer-legal-text"
+    }
+  }
+}

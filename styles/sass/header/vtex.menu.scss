@@ -1,0 +1,17 @@
+.menuContainer--header {
+  gap: 54px;
+
+  .styledLinkContainer--header {
+    padding: 0;
+    margin: 0;
+
+    .styledLinkContent--header {
+      font-family: Roboto;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 16.41px;
+      text-align: left;
+      color: #000000;
+    }
+  }
+}

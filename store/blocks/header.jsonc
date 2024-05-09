@@ -12,7 +12,7 @@
     "props": {
       "blockClass": "sticky-header"
     },
-    "children": []
+    "children": ["flex-layout.row#header-top", "flex-layout.row#header"]
   },
   "header-layout.mobile": {
     "children": ["sticky-layout#mobile"]
@@ -21,6 +21,83 @@
     "children": [],
     "props": {
       "blockClass": "headerMobile"
+    }
+  },
+
+  "flex-layout.row#header-top": {
+    "props": {
+      "blockClass": "header-top"
+    }
+  },
+  "flex-layout.row#header": {
+    "props": {
+      "preserveLayoutOnMobile": true,
+      "preventVerticalStretch": true,
+      "blockClass": "header"
+    },
+    "children": ["image#header-logo", "menu#header", "image#header-placeholder"]
+  },
+  "image#header-logo": {
+    "props": {
+      "src": "https://t15903.vtexassets.com/arquivos/logo-smc-header.png",
+      "link": {
+        "openNewTab": false,
+        "url": "/"
+      },
+      "alt": "Logo SMC"
+    }
+  },
+  "menu#header": {
+    "props": {
+      "items": [
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "BCP – BUSINESS CONTINUITY PLAN",
+            "text": "BCP – BUSINESS CONTINUITY PLAN"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "PRODUTOS",
+            "text": "PRODUTOS"
+          }
+        },
+        {
+          "id": "",
+          "type": "custom",
+          "highlight": false,
+          "itemProps": {
+            "type": "internal",
+            "href": "/",
+            "noFollow": false,
+            "tagTitle": "FINANCEIRO",
+            "text": "FINANCEIRO"
+          }
+        }
+      ],
+      "blockClass": ["header"]
+    }
+  },
+  "image#header-placeholder": {
+    "props": {
+      "src": "https://fakeimg.pl/327x70",
+      "link": {
+        "openNewTab": false,
+        "url": "/"
+      },
+      "alt": "Logo SMC"
     }
   }
 }

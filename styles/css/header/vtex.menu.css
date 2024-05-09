@@ -1,0 +1,17 @@
+.menuContainer--header {
+  gap: 54px;
+}
+.menuContainer--header .styledLinkContainer--header {
+  padding: 0;
+  margin: 0;
+}
+.menuContainer--header .styledLinkContainer--header .styledLinkContent--header {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16.41px;
+  text-align: left;
+  color: #000000;
+}
+
+/*# sourceMappingURL=vtex.menu.css.map */

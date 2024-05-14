@@ -1,13 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import classicSingIn from "../../graphql/classicSingIn.graphql";
 import "./global.css";
+import { useMutation } from "react-apollo";
 
 const LoginCustom = () => {
+  const [show, setShow] = useState(true);
   const [step, setStep] = useState("login");
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [userPassword, setUserPassword] = useState<string>("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("/api/sessions?items=*");
+      const session = await response.json();
+
+      if (session?.namespaces?.profile?.email?.value) setShow(false);
+    };
+
+    fetchData();
+  }, []);
+
+  //@ts-ignore
+  const [classicSingInMutation, { data, error: erroSignIn }] = useMutation(
+    classicSingIn,
+    {
+      variables: {
+        email: userEmail,
+        password: userPassword,
+      },
+    }
+  );
+
+  if (data?.classicSignIn === "Success") {
+    window.location.reload();
+  }
+
+  const handleLogin = () => {
+    classicSingInMutation();
+  };
 
   return (
     <>
-      <div className="login-custom-modal-backdrop" />
-      <div className="login-custom-modal-container">
+      <div className={`login-custom-modal-backdrop ${!show && "dn"}`} />
+      <div className={`login-custom-modal-container ${!show && "dn"}`}>
         <img
           src="https://t15903.vtexassets.com/arquivos/logo-smc-header.png"
           alt=""
@@ -16,9 +51,30 @@ const LoginCustom = () => {
         {step === "login" && (
           <>
             <div className="login-custom-modal-top">
-              <form action="" className="login-custom-modal-form">
-                <input type="text" name="" id="" placeholder="E-mail" />
-                <input type="text" name="" id="" placeholder="Senha" />
+              <form
+                action=""
+                className="login-custom-modal-form"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleLogin();
+                }}
+              >
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="E-mail"
+                  value={userEmail}
+                  onChange={(e) => setUserEmail((e.target as any).value)}
+                />
+                <input
+                  type="password"
+                  name=""
+                  id=""
+                  placeholder="Senha"
+                  value={userPassword}
+                  onChange={(e) => setUserPassword((e.target as any).value)}
+                />
                 <button>Entrar</button>
               </form>
               <p

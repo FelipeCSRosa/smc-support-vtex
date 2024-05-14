@@ -83,7 +83,8 @@
     "vtex.storefront-permissions-ui": "1.x",
     "vtex.b2b-quotes": "1.x",
     "vtex.b2b-organizations": "1.x",
-    "vtex.render-runtime": "8.x"
+    "vtex.render-runtime": "8.x",
+    "vtex.store-graphql": "2.x"
   },
   "policies": [
     {

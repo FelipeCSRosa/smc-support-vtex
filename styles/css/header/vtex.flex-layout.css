@@ -16,8 +16,5 @@
 .flexRow--header .flexRowContent--header .stretchChildrenWidth {
   width: fit-content !important;
 }
-.flexRow--header .flexRowContent--header .stretchChildrenWidth:last-child {
-  margin-left: auto;
-}
 
 /*# sourceMappingURL=vtex.flex-layout.css.map */

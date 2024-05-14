@@ -15,10 +15,6 @@
 
     .stretchChildrenWidth {
       width: fit-content !important;
-
-      &:last-child {
-        margin-left: auto;
-      }
     }
   }
 }

@@ -12,7 +12,11 @@
     "props": {
       "blockClass": "sticky-header"
     },
-    "children": ["flex-layout.row#header-top", "flex-layout.row#header"]
+    "children": [
+      "flex-layout.row#header-top",
+      "flex-layout.row#header",
+      "login-custom"
+    ]
   },
   "header-layout.mobile": {
     "children": ["sticky-layout#mobile"]
@@ -35,7 +39,12 @@
       "preventVerticalStretch": true,
       "blockClass": "header"
     },
-    "children": ["image#header-logo", "menu#header", "image#header-placeholder"]
+    "children": [
+      "image#header-logo",
+      "menu#header",
+      "user-infos",
+      "minicart-custom"
+    ]
   },
   "image#header-logo": {
     "props": {
@@ -88,16 +97,6 @@
         }
       ],
       "blockClass": ["header"]
-    }
-  },
-  "image#header-placeholder": {
-    "props": {
-      "src": "https://fakeimg.pl/327x70",
-      "link": {
-        "openNewTab": false,
-        "url": "/"
-      },
-      "alt": "Logo SMC"
     }
   }
 }

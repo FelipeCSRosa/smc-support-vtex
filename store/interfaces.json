@@ -16,5 +16,14 @@
   },
   "table": {
     "component": "Table"
+  },
+  "login-custom": {
+    "component": "LoginCustom"
+  },
+  "user-infos": {
+    "component": "UserInfos"
+  },
+  "minicart-custom": {
+    "component": "MinicartCustom"
   }
 }

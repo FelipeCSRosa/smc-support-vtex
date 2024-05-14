@@ -1,0 +1,135 @@
+.login-custom-modal-backdrop {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #000000;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 998;
+  display: none;
+}
+
+.login-custom-modal-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 100vw !important;
+  height: fit-content;
+  max-width: 360px;
+  padding: 21px 30px 38px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 30px 0px #00000026;
+  z-index: 999;
+  display: none;
+}
+
+.login-custom-modal-logo {
+  max-width: 87px;
+  margin-bottom: 20px;
+}
+
+.login-custom-modal-top {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 19px;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 27px;
+}
+
+.login-custom-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.login-custom-modal-form input {
+  height: 42px;
+  border: 1px solid #dddddd;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  text-align: left;
+  color: #7a7a7a;
+  padding-inline: 13px;
+}
+
+.login-custom-modal-form button {
+  height: 45px;
+  background-color: #007bc2;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.login-custom-modal-forgot-password {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  text-align: left;
+  color: #007bc2;
+  margin: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.login-custom-modal-dont-have-account {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: #000000;
+  margin: 0;
+}
+
+.login-custom-modal-register {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: #007bc2;
+  margin: 0;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.login-custom-modal-recover-message {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: #000000;
+  margin: 0 0 21px;
+  max-width: 290px;
+}
+
+.login-custom-modal-button-cancel {
+  height: 45px;
+  background-color: #c5d4e2;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: #007bc2;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 11px;
+}

@@ -12,6 +12,7 @@
 }
 .flexRow--header .flexRowContent--header {
   gap: 40px;
+  align-items: center;
 }
 .flexRow--header .flexRowContent--header .stretchChildrenWidth {
   width: fit-content !important;

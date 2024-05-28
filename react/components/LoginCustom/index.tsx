@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useRenderSession } from "vtex.session-client";
+import type { SessionSuccess } from "vtex.session-client";
+import { useMutation } from "react-apollo";
 import classicSingIn from "../../graphql/classicSingIn.graphql";
 import "./global.css";
-import { useMutation } from "react-apollo";
 
 const LoginCustom = () => {
   const [show, setShow] = useState(true);
@@ -9,16 +11,14 @@ const LoginCustom = () => {
   const [userEmail, setUserEmail] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
 
+  const { loading: sessionLoading, session } = useRenderSession();
+
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("/api/sessions?items=*");
-      const session = await response.json();
-
-      if (session?.namespaces?.profile?.email?.value) setShow(false);
-    };
-
-    fetchData();
-  }, []);
+    if (!sessionLoading && session) {
+      if ((session as SessionSuccess).namespaces?.profile?.email?.value)
+        setShow(false);
+    }
+  }, [sessionLoading]);
 
   //@ts-ignore
   const [classicSingInMutation, { data, error: erroSignIn }] = useMutation(

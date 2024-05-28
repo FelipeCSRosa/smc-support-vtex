@@ -37,6 +37,7 @@
     "props": {
       "preserveLayoutOnMobile": true,
       "preventVerticalStretch": true,
+      "preventHorizontalStretch": true,
       "blockClass": "header"
     },
     "children": [

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./global.css";
 
 const UserInfos = () => {
@@ -27,8 +27,56 @@ const UserInfos = () => {
         <p className="user-infons-details-container-email">
           joaom@smcbr.com.br
         </p>
+        <CustomerCredit />
       </div>
     </div>
+  );
+};
+
+const CustomerCredit = () => {
+  const [creditLimit, setCreditLimit] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("/api/sessions?items=*");
+      const session = await response.json();
+
+      if (session?.namespaces?.profile?.email?.value) {
+        fetch(
+          `/api/creditcontrol/accounts?from=1&to=1&email=${session?.namespaces?.profile?.email?.value}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        )
+          .then((response) => response.json())
+          .then(({ data }) => {
+            if (data.length) {
+              setCreditLimit(data[0]?.creditLimit);
+            }
+          })
+          .catch((error) => console.error("Erro ao enviar dados:", error));
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <>
+      {creditLimit && (
+        <p className="credit-limit">
+          Limite de crédito:{" "}
+          {creditLimit.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          })}
+        </p>
+      )}
+    </>
   );
 };
 

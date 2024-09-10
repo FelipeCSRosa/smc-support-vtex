@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+//@ts-ignore
 import { useRenderSession } from "vtex.session-client";
+//@ts-ignore
 import type { SessionSuccess } from "vtex.session-client";
 import { useMutation } from "react-apollo";
 import classicSingIn from "../../graphql/classicSingIn.graphql";

@@ -26,14 +26,14 @@
   border: 1px solid #cccccc;
 }
 
-.table-row {
+.table-row-columns {
   display: flex;
   height: 60px;
 }
-.table-row:nth-child(odd) {
+.table-row-columns:nth-child(odd) {
   background-color: #f9f9f9;
 }
-.table-row:nth-child(even) {
+.table-row-columns:nth-child(even) {
   background-color: #ffffff;
 }
 
@@ -121,28 +121,31 @@
   width: 27px;
 }
 .table-item-quantity {
-  width: 96px;
+  width: 84px;
 }
-.table-item-code {
-  width: 96px;
+.table-item-product {
+  width: 76px;
 }
 .table-item-partnumber {
-  width: 135px;
+  width: 125px;
 }
 .table-item-description {
-  width: 219px;
+  width: 189px;
 }
 .table-item-measurement {
-  width: 90px;
+  width: 70px;
 }
 .table-item-deadline {
-  width: 101px;
+  width: 133px;
 }
 .table-item-price {
-  width: 156px;
+  width: 106px;
 }
 .table-item-total {
   width: 92px;
+}
+.table-item-code {
+  width: 110px;
 }
 .table-item-buttons {
   padding: 0 8px;
@@ -157,12 +160,34 @@
   gap: 2px;
 }
 .table-row-item-price {
-  padding-left: 6px;
-  padding-right: 4px;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 6px;
+  padding-left: 6px !important;
 }
 .table-row-item-total {
   font-weight: 600;
+}
+.table-row-item-code input {
+  width: 94px;
+  height: 30px;
+  border-radius: 3px;
+  background: #fafafa;
+  border: 1px solid #dddddd;
+  box-shadow: 0px 0px 4px 0px #00000040 inset;
+  padding: 3px 7px;
+  font-family: SF Pro Text;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #000000;
+}
+.table-row-item-code input:focus {
+  outline: none;
 }
 .table-row-item.table-item-description {
   padding-right: 39px;
@@ -260,3 +285,256 @@
   width: 80px;
 }
 /* Price Details */
+
+.table-row-item-deadline {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 6px;
+  padding-left: 6px !important;
+}
+.table-row-item-deadline button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3px;
+  width: 115px;
+  height: 19px;
+  padding: 3px 4px;
+  border-radius: 3px;
+  background: #001f60;
+  font-family: Roboto;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 12.89px;
+  text-align: center;
+  color: #ffffff;
+  position: relative;
+  cursor: pointer;
+}
+.table-row-item-deadline button svg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  right: 0;
+}
+
+/* Table Row Schedule */
+.table-row-schedule-delivery {
+  border: 1px solid #dddddd;
+  border-bottom: none;
+  padding-bottom: 14px;
+  background: #eeeeeeee;
+  overflow: hidden;
+}
+
+.schedule-delivery-header {
+  padding: 10px 20px;
+  border-bottom: 1px solid #dddddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.schedule-delivery-header-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.schedule-delivery-header-select-wrapper p {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #000000;
+  margin: 0;
+}
+
+.schedule-delivery-header-select-container {
+  position: relative;
+}
+
+.schedule-delivery-header-select-container select {
+  appearance: none;
+  width: 48px;
+  height: 30px;
+  background: #fafafa;
+  padding-left: 7px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  box-shadow: 0px 0px 4px 0px #00000040 inset;
+  /* font-family: SF Pro Text; */
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #000000;
+  cursor: pointer;
+}
+
+.schedule-delivery-header-select-container span {
+  position: absolute;
+  top: 0px;
+  bottom: 0;
+  margin: auto 0;
+  right: 8px;
+  display: flex;
+  width: 7px;
+  height: 5px;
+}
+
+.schedule-delivery-header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.schedule-delivery-header-buttons button {
+  width: 60px;
+  height: 26px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  background: #007bc2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16.41px;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+  border: none;
+}
+
+.schedule-delivery-header-buttons button:hover {
+  opacity: 0.8;
+}
+
+.schedule-delivery-header-buttons svg {
+  cursor: pointer;
+}
+
+.schedule-delivery-table-header {
+  display: flex;
+  align-items: center;
+  padding: 4px 20px;
+  border-bottom: 1px solid #dddddd;
+  gap: 33px;
+}
+
+.schedule-delivery-table-header-column {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #000000;
+}
+
+.schedule-delivery-table-row {
+  display: flex;
+  align-items: center;
+  padding: 4px 20px;
+  border-bottom: 1px solid #dddddd;
+  gap: 33px;
+}
+.schedule-delivery-table-row .schedule-delivery-table-column-installment {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #000000;
+}
+.schedule-delivery-table-row .schedule-delivery-table-column-quantity input {
+  width: 48px;
+  height: 31px;
+  border-radius: 3px;
+  border: 1px;
+  border: 1px solid #dddddd;
+  box-shadow: 0px 0px 4px 0px #00000040 inset;
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #000000;
+  outline: none;
+}
+
+.schedule-delivery-table-row .schedule-delivery-table-column-date {
+  position: relative;
+}
+
+.schedule-delivery-date-background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto 0;
+  width: 91px;
+  height: 30px;
+  border-radius: 3px;
+  border: 1px;
+  border: 1px solid #dddddd;
+  background: #fafafa;
+}
+
+.schedule-delivery-table-row .schedule-delivery-table-column-date input {
+  border: none;
+  background-color: transparent;
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #000000;
+  outline: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -5px;
+  margin: auto 0;
+  width: 116px;
+  height: 30px;
+}
+::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+  z-index: 1;
+}
+.schedule-delivery-table-row .schedule-delivery-table-column-date input:before {
+  content: "";
+  display: block;
+  width: 14px;
+  height: 16px;
+  background-image: url('data:image/svg+xml,<svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(%23clip0_22_1037)"><path d="M5 1V2H9V1C9 0.447812 9.44687 0 10 0C10.5531 0 11 0.447812 11 1V2H12.5C13.3281 2 14 2.67156 14 3.5V5H0V3.5C0 2.67156 0.671562 2 1.5 2H3V1C3 0.447812 3.44688 0 4 0C4.55312 0 5 0.447812 5 1ZM0 6H14V14.5C14 15.3281 13.3281 16 12.5 16H1.5C0.671562 16 0 15.3281 0 14.5V6ZM2 9.5C2 9.775 2.22375 10 2.5 10H3.5C3.775 10 4 9.775 4 9.5V8.5C4 8.225 3.775 8 3.5 8H2.5C2.22375 8 2 8.225 2 8.5V9.5ZM6 9.5C6 9.775 6.225 10 6.5 10H7.5C7.775 10 8 9.775 8 9.5V8.5C8 8.225 7.775 8 7.5 8H6.5C6.225 8 6 8.225 6 8.5V9.5ZM10.5 8C10.225 8 10 8.225 10 8.5V9.5C10 9.775 10.225 10 10.5 10H11.5C11.775 10 12 9.775 12 9.5V8.5C12 8.225 11.775 8 11.5 8H10.5ZM2 13.5C2 13.775 2.22375 14 2.5 14H3.5C3.775 14 4 13.775 4 13.5V12.5C4 12.225 3.775 12 3.5 12H2.5C2.22375 12 2 12.225 2 12.5V13.5ZM6.5 12C6.225 12 6 12.225 6 12.5V13.5C6 13.775 6.225 14 6.5 14H7.5C7.775 14 8 13.775 8 13.5V12.5C8 12.225 7.775 12 7.5 12H6.5ZM10 13.5C10 13.775 10.225 14 10.5 14H11.5C11.775 14 12 13.775 12 13.5V12.5C12 12.225 11.775 12 11.5 12H10.5C10.225 12 10 12.225 10 12.5V13.5Z" fill="%23001F60"/></g><defs><clipPath id="clip0_22_1037"><rect width="14" height="16" fill="white"/></clipPath></defs></svg>');
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  right: 0;
+}
+
+.schedule-delivery-table-column-installment {
+  width: 43px;
+}
+.schedule-delivery-table-column-quantity {
+  width: 65px;
+}
+.schedule-delivery-table-column-date {
+  width: 111px;
+}
+/* Table Row Schedule */

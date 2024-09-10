@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { canUseDOM } from "vtex.render-runtime";
+import React, { /* useEffect, */ useState } from "react";
+/* import { canUseDOM } from "vtex.render-runtime"; */
 import "./global.css";
 
 const FilterOrderBy = () => {
   const [showFilterOptions, setShowFilterOptions] = useState(false);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const handleClick = () => {
       setShowFilterOptions(false);
     };
@@ -19,21 +19,21 @@ const FilterOrderBy = () => {
         window.removeEventListener("click", handleClick);
       }
     };
-  }, [canUseDOM]);
+  }, [canUseDOM]); */
 
   return (
-    <div
-      className="filter-orderby-container"
-      onClick={(e) => {
-        e.stopPropagation();
-      }}
-    >
-      <div className="filter-wrapper">
+    <>
+      <div
+        className="filter-orderby-container"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <div
           className="filter-container"
           onClick={(e) => {
             e.stopPropagation();
-            setShowFilterOptions(true);
+            setShowFilterOptions(!showFilterOptions);
           }}
         >
           <svg
@@ -57,92 +57,640 @@ const FilterOrderBy = () => {
           </svg>
           <span>Filtrar</span>
         </div>
-        <div
-          className="filter-options-container"
-          style={{
-            display: showFilterOptions ? "block" : "none",
-          }}
-        >
-          <div className="filter-options-speech-bubble">
-            <svg
-              width="12"
-              height="10"
-              viewBox="0 0 12 10"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M6 0L11.1962 9.41667H0.803848L6 0Z" fill="white" />
-            </svg>
+        <p className="filter-orderby-message">
+          * Prazo de entrega sujeito a alteração de acordo com a disponibilidade
+          do fechamento do pedido.
+        </p>
+        <div className="code-orderby-container">
+          <div className="purchase-code-container">
+            <input type="text" />
+            <button>Preencher todos os campos de cód. de compra</button>
           </div>
-          <div
-            className="filter-options-close-icon"
+          <div className="orderby-container">
+            <select name="orderby" id="orderby">
+              <option value="">Ordenar por</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+              <option value="4">Option 4</option>
+            </select>
+            <span>
+              <svg
+                width="7"
+                height="5"
+                viewBox="0 0 7 5"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.81675 1.81641L4.33432 4.31641C4.19565 4.43945 4.0355 4.5 3.87534 4.5C3.71518 4.5 3.55542 4.43896 3.43335 4.31689L0.950925 1.81689C0.754722 1.63867 0.701198 1.36914 0.797956 1.13672C0.894714 0.904297 1.1228 0.75 1.37534 0.75H6.35776C6.6105 0.75 6.83862 0.901973 6.93549 1.13574C7.03237 1.36951 6.99643 1.63867 6.81675 1.81641Z"
+                  fill="black"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="filter-drawer"
+        style={{
+          transform: showFilterOptions ? "translate(0)" : "translate(+110%)",
+        }}
+      >
+        <div className="filter-drawer-header">
+          <p className="filter-drawer-header-title">Filtrar</p>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
             onClick={(e) => {
               e.stopPropagation();
               setShowFilterOptions(false);
             }}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g clip-path="url(#clip0_208_2738)">
-                <path
-                  d="M12.6663 4.27665L11.723 3.33331L7.99967 7.05665L4.27634 3.33331L3.33301 4.27665L7.05634 7.99998L3.33301 11.7233L4.27634 12.6666L7.99967 8.94331L11.723 12.6666L12.6663 11.7233L8.94301 7.99998L12.6663 4.27665Z"
-                  fill="black"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_208_2738">
-                  <rect width="16" height="16" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-          </div>
-          <p className="filter-option-title">Família</p>
-          <label
-            htmlFor="filter-option-placeholder-1"
-            className="filter-option"
-          >
-            <input
-              type="checkbox"
-              name="filter-option-placeholder-1"
-              id="filter-option-placeholder-1"
-            />
-            <span>Atuador</span>
-          </label>
-        </div>
-      </div>
-      <p className="filter-orderby-message">
-        * Prazo de entrega sujeito a alteração de acordo com a disponibilidade
-        do fechamento do pedido.
-      </p>
-      <div className="orderby-container">
-        <select name="orderby" id="orderby">
-          <option value="">Ordenar por</option>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-          <option value="3">Option 3</option>
-          <option value="4">Option 4</option>
-        </select>
-        <span>
-          <svg
-            width="7"
-            height="5"
-            viewBox="0 0 7 5"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
             <path
-              d="M6.81675 1.81641L4.33432 4.31641C4.19565 4.43945 4.0355 4.5 3.87534 4.5C3.71518 4.5 3.55542 4.43896 3.43335 4.31689L0.950925 1.81689C0.754722 1.63867 0.701198 1.36914 0.797956 1.13672C0.894714 0.904297 1.1228 0.75 1.37534 0.75H6.35776C6.6105 0.75 6.83862 0.901973 6.93549 1.13574C7.03237 1.36951 6.99643 1.63867 6.81675 1.81641Z"
+              d="M4.41675 15.5834C4.58341 15.75 4.75008 15.8334 5.00008 15.8334C5.25008 15.8334 5.41675 15.75 5.58341 15.5834L10.0001 11.1667L14.4167 15.5834C14.5834 15.75 14.8334 15.8334 15.0001 15.8334C15.1667 15.8334 15.4167 15.75 15.5834 15.5834C15.9167 15.25 15.9167 14.75 15.5834 14.4167L11.1667 10L15.5834 5.58335C15.9167 5.25002 15.9167 4.75002 15.5834 4.41669C15.2501 4.08335 14.7501 4.08335 14.4167 4.41669L10.0001 8.83335L5.58341 4.41669C5.25008 4.08335 4.75008 4.08335 4.41675 4.41669C4.08341 4.75002 4.08341 5.25002 4.41675 5.58335L8.83342 10L4.41675 14.4167C4.08341 14.75 4.08341 15.25 4.41675 15.5834Z"
               fill="black"
             />
           </svg>
-        </span>
+        </div>
+        <div className="filter-family">
+          <p className="filter-title filter-family-title">
+            Selecione a Família
+          </p>
+          <div>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Atuador</span>
+            </label>
+          </div>
+        </div>
+        <div className="filter-scroll">
+          <p className="filter-title">Selecione o tipo</p>
+          <div className="filter-scroll-options">
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Tipo 1</span>
+            </label>
+          </div>
+        </div>
+        <div className="filter-scroll">
+          <p className="filter-title">Selecione a Série</p>
+          <div className="filter-scroll-options">
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+            <label
+              htmlFor="filter-option-placeholder-1"
+              className="filter-option"
+            >
+              <input
+                type="checkbox"
+                name="filter-option-placeholder-1"
+                id="filter-option-placeholder-1"
+              />
+              <span>Série 0001</span>
+            </label>
+          </div>
+        </div>
+        <button className="filter-buttons">Aplicar</button>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -39,3 +39,13 @@
   color: #007bc2;
   margin: 0;
 }
+
+.credit-limit {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
+  color: #000000;
+  margin: 0;
+}

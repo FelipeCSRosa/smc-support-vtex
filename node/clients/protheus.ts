@@ -3,7 +3,7 @@ import { ExternalClient } from '@vtex/api'
 
 export default class Protheus extends ExternalClient {
   constructor(context: IOContext, options?: InstanceOptions) {
-    super('http://179.184.232.42:443', context, options)
+    super('http://179.184.232.42:80', context, options)
   }
 
   public async getCondicaoPagamento(): Promise<any> {
@@ -12,8 +12,9 @@ export default class Protheus extends ExternalClient {
         `/atosdata/condicaoPagamento?cnpjcliente=00000000000000`,
         {
           headers: {
-            'X-Vtex-Use-Https': 'true',
-            'X-Vtex-Remote-Port': '443',
+            'X-Vtex-Use-Https': 'false',
+            Host: '179.184.232.42:80',
+            'X-Vtex-Remote-Port': '80',
             'Proxy-Authorization': this.context.adminUserAuthToken,
             VtexIdClientAutCookie: this.context.adminUserAuthToken,
           },

@@ -113,8 +113,8 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "179.184.232.45",
-        "path": "/*"
+        "host": "api.smcbr.com.br",
+        "path": "*"
       }
     },
     {

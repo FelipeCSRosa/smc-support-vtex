@@ -3,7 +3,7 @@ import { ExternalClient } from '@vtex/api'
 
 export default class Protheus extends ExternalClient {
   constructor(context: IOContext, options?: InstanceOptions) {
-    super('http://api.smcbr.com.br/', context, options)
+    super('http://api.smcbr.com.br:80/', context, options)
   }
 
   public async getCondicaoPagamento(): Promise<any> {
@@ -12,7 +12,10 @@ export default class Protheus extends ExternalClient {
         `/atosdata/condicaoPagamento?cnpjcliente=00000000000000`,
         {
           headers: {
-            'Proxy-Authorization': this.context.adminUserAuthToken,
+            "X-VTEX-Use-Https": true,
+            Host: "api.smcbr.com.br",
+            "X-Vtex-Remote-Port": "80",
+            'Proxy-Authorization': this.context.authToken,
             VtexIdClientAutCookie: this.context.adminUserAuthToken,
             Authorization: 'Basic ',
           },

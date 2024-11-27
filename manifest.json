@@ -114,7 +114,7 @@
       "name": "outbound-access",
       "attrs": {
         "host": "api.smcbr.com.br",
-        "path": "/atosdata/condicaoPagamento"
+        "path": "/*"
       }
     },
     {

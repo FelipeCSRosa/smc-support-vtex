@@ -13,7 +13,7 @@ const Cards = () => {
 };
 
 const CardOrder = () => {
-  const { items } = useOrderInfosContext();
+  const { items, setItems } = useOrderInfosContext();
 
   const itemsWithQuantity = items.filter((item: any) => item.quantity > 0);
 
@@ -42,7 +42,7 @@ const CardOrder = () => {
         </div>
       </div>
       <div className="card-order-actions">
-        <div className="card-order-action">
+        <div className="card-order-action" onClick={() => setItems([])}>
           <svg
             width="16"
             height="16"

@@ -213,9 +213,9 @@
   cursor: pointer;
 }
 
-.purchase-code-container button:hover {
+/* .purchase-code-container button:hover {
   opacity: 0.8;
-}
+} */
 
 .orderby-container {
   position: relative;

@@ -9,6 +9,9 @@
     "children": ["flex-layout.col#home"]
   },
   "flex-layout.col#home": {
+    "children": ["main-content"]
+  },
+  "main-content": {
     "children": ["order-cards", "filter-orderby", "table"]
   }
 }

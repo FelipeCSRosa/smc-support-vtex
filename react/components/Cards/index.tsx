@@ -1,5 +1,7 @@
 import React from "react";
 import "./global.css";
+import { useOrderInfosContext } from "../MainContent";
+import formatToBRL from "../../utils/formatToBRL";
 
 const Cards = () => {
   return (
@@ -11,6 +13,14 @@ const Cards = () => {
 };
 
 const CardOrder = () => {
+  const { items } = useOrderInfosContext();
+
+  const itemsWithQuantity = items.filter((item: any) => item.quantity > 0);
+
+  const total = itemsWithQuantity.reduce((total: number, item: any) => {
+    return total + item.preco * item.quantity;
+  }, 0);
+
   return (
     <div className="card-container card-order-container">
       <div className="card-order-totalizers">
@@ -18,13 +28,15 @@ const CardOrder = () => {
         <div className="card-order-totalizers-values">
           <div className="card-order-totalizer">
             <p className="card-order-totalizer-title">Item(s)</p>
-            <p className="card-order-totalizer-value">16</p>
+            <p className="card-order-totalizer-value">
+              {itemsWithQuantity.length}
+            </p>
           </div>
           <div className="card-order-totalizer">
             <p className="card-order-totalizer-title">
               Valor Total R$ <span>(Sem IPI, ST)</span>
             </p>
-            <p className="card-order-totalizer-value">R$ 1.616,79</p>
+            <p className="card-order-totalizer-value">{formatToBRL(total)}</p>
           </div>
           <button className="card-order-button">Finalizar Compra</button>
         </div>
@@ -159,6 +171,8 @@ const CardOrder = () => {
 };
 
 const CardSearch = () => {
+  const { searchTerm, setSearchTerm } = useOrderInfosContext();
+
   return (
     <div className="card-container card-search-container">
       <div className="card-search-top">
@@ -166,8 +180,10 @@ const CardSearch = () => {
         <div className="card-search-input-container">
           <input
             type="text"
-            placeholder="Digite o Código do Produto ou Descrição"
+            placeholder="Digite o Código do Produto, Partnumber ou Código do cliente"
             className="card-search-input"
+            value={searchTerm}
+            onChange={(e: any) => setSearchTerm(e.target.value)}
           />
           <button className="card-search-button">
             Busca
@@ -193,7 +209,7 @@ const CardSearch = () => {
           </button>
         </div>
       </div>
-      <div className="card-search-bottom">
+      {/* <div className="card-search-bottom">
         <label htmlFor="search-customer-code" className="card-search-check">
           <input
             type="checkbox"
@@ -202,7 +218,7 @@ const CardSearch = () => {
           />
           <span>Fazer busca com seu código de cliente</span>
         </label>
-      </div>
+      </div> */}
     </div>
   );
 };

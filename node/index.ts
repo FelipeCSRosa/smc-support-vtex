@@ -7,7 +7,7 @@ import type {
 import { LRUCache, Service } from '@vtex/api'
 import { Clients } from './clients'
 
-import { Test } from './resolvers'
+import { TestCondicaoPagamento, TestProdutosCliente, TestPrecoProduto, getCustomerProducts } from './resolvers'
 
 const TIMEOUT_MS = 50 * 1000
 
@@ -32,9 +32,18 @@ export default new Service<Clients, RecorderState, ParamsContext>({
   graphql: {
     resolvers: {
       Query: {
-        Test(_: any, __: any, ctx: Context) {
-          return Test(_, __, ctx)
+        TestCondicaoPagamento(_: any, __: any, ctx: Context) {
+          return TestCondicaoPagamento(_, __, ctx)
         },
+        TestProdutosCliente(_: any, __: any, ctx: Context) {
+          return TestProdutosCliente(_, __, ctx)
+        },
+        TestPrecoProduto(_: any, __: any, ctx: Context) {
+          return TestPrecoProduto(_, __, ctx)
+        },
+        getCustomerProducts(_: any, { cnpjcliente, pagina, tamanhopagina, familia, tipo, serie }: any, ctx: Context) {
+          return getCustomerProducts(_, {cnpjcliente, pagina, tamanhopagina, familia, tipo, serie}, ctx)
+        }
       },
     },
   },

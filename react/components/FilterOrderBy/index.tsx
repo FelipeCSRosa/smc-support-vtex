@@ -1,25 +1,104 @@
-import React, { /* useEffect, */ useState } from "react";
-/* import { canUseDOM } from "vtex.render-runtime"; */
+import React, { useState } from "react";
 import "./global.css";
+import { useOrderInfosContext } from "../MainContent";
 
 const FilterOrderBy = () => {
   const [showFilterOptions, setShowFilterOptions] = useState(false);
 
-  /* useEffect(() => {
-    const handleClick = () => {
-      setShowFilterOptions(false);
-    };
+  const {
+    products,
+    searchTerm,
+    globalOrderCode,
+    setGlobalOrderCode,
+    selectedFamily,
+    setSelectedFamily,
+    selectedType,
+    setSelectedType,
+    selectedSeries,
+    setSelectedSeries,
+    orderBy,
+    setOrderBy,
+  } = useOrderInfosContext();
 
-    if (canUseDOM) {
-      window.addEventListener("click", handleClick);
-    }
+  const families = [
+    ...new Set(
+      products
+        ?.filter(
+          (item: any) =>
+            item.produtoprotheus
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase()) ||
+            item.descricaoprotheus
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
+        )
+        ?.map((item: any) => item.familia)
+    ),
+  ].sort();
 
-    return () => {
-      if (canUseDOM) {
-        window.removeEventListener("click", handleClick);
-      }
-    };
-  }, [canUseDOM]); */
+  const types = [
+    ...new Set(
+      products
+        ?.filter(
+          (item: any) =>
+            item.produtoprotheus
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase()) ||
+            item.descricaoprotheus
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
+        )
+        ?.filter((item: any) => item.familia === selectedFamily)
+        .map((item: any) => item.tipo)
+    ),
+  ].sort();
+
+  const series = [
+    ...new Set(
+      products
+        ?.filter(
+          (item: any) =>
+            item.produtoprotheus
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase()) ||
+            item.descricaoprotheus
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
+        )
+        ?.filter((item: any) => item.tipo === selectedType)
+        .map((item: any) => item.serie)
+    ),
+  ].sort();
+
+  const handleFamilyChange = (e: any) => {
+    setSelectedFamily(e.target.value);
+    setSelectedType(null);
+    setSelectedSeries(null);
+  };
+
+  const handleTypeChange = (e: any) => {
+    setSelectedType(e.target.value);
+    setSelectedSeries(null);
+  };
+
+  const handleSeriesChange = (e: any) => {
+    setSelectedSeries(e.target.value);
+  };
+
+  const handleUncheckFamily = () => {
+    setSelectedFamily(null);
+    setSelectedType(null);
+    setSelectedSeries(null);
+  };
+
+  const handleUncheckType = () => {
+    setSelectedType(null);
+    setSelectedSeries(null);
+  };
+
+  const handleUncheckSeries = () => {
+    setSelectedSeries(null);
+  };
 
   return (
     <>
@@ -63,16 +142,26 @@ const FilterOrderBy = () => {
         </p>
         <div className="code-orderby-container">
           <div className="purchase-code-container">
-            <input type="text" />
+            <input
+              type="text"
+              value={globalOrderCode}
+              onChange={(e: any) => setGlobalOrderCode(e.target.value)}
+            />
             <button>Preencher todos os campos de cód. de compra</button>
           </div>
           <div className="orderby-container">
-            <select name="orderby" id="orderby">
-              <option value="">Ordenar por</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-              <option value="4">Option 4</option>
+            <select
+              name="orderby"
+              id="orderby"
+              value={orderBy}
+              onChange={(e) => setOrderBy(e.target.value)}
+            >
+              <option value="" disabled={!!orderBy}>
+                Ordenar por
+              </option>
+              <option value="produto">Produto</option>
+              <option value="preco-asc">Menor preço</option>
+              <option value="preco-desc">Maior preço</option>
             </select>
             <span>
               <svg
@@ -91,6 +180,7 @@ const FilterOrderBy = () => {
           </div>
         </div>
       </div>
+
       <div
         className="filter-drawer"
         style={{
@@ -105,10 +195,7 @@ const FilterOrderBy = () => {
             viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowFilterOptions(false);
-            }}
+            onClick={() => setShowFilterOptions(false)}
           >
             <path
               d="M4.41675 15.5834C4.58341 15.75 4.75008 15.8334 5.00008 15.8334C5.25008 15.8334 5.41675 15.75 5.58341 15.5834L10.0001 11.1667L14.4167 15.5834C14.5834 15.75 14.8334 15.8334 15.0001 15.8334C15.1667 15.8334 15.4167 15.75 15.5834 15.5834C15.9167 15.25 15.9167 14.75 15.5834 14.4167L11.1667 10L15.5834 5.58335C15.9167 5.25002 15.9167 4.75002 15.5834 4.41669C15.2501 4.08335 14.7501 4.08335 14.4167 4.41669L10.0001 8.83335L5.58341 4.41669C5.25008 4.08335 4.75008 4.08335 4.41675 4.41669C4.08341 4.75002 4.08341 5.25002 4.41675 5.58335L8.83342 10L4.41675 14.4167C4.08341 14.75 4.08341 15.25 4.41675 15.5834Z"
@@ -116,579 +203,66 @@ const FilterOrderBy = () => {
             />
           </svg>
         </div>
+
         <div className="filter-family">
           <p className="filter-title filter-family-title">
             Selecione a Família
           </p>
-          <div>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
+          {families.map((family: any) => (
+            <label key={family} className="filter-option">
               <input
                 type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
+                value={family}
+                checked={selectedFamily === family}
+                onChange={(e) => {
+                  const isChecked = e.target.checked;
+                  isChecked ? handleFamilyChange(e) : handleUncheckFamily();
+                }}
               />
-              <span>Atuador</span>
+              <span>{family}</span>
             </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Atuador</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Atuador</span>
-            </label>
-
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Atuador</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Atuador</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Atuador</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Atuador</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Atuador</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Atuador</span>
-            </label>
-
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Atuador</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Atuador</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Atuador</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Atuador</span>
-            </label>
-          </div>
+          ))}
         </div>
-        <div className="filter-scroll">
-          <p className="filter-title">Selecione o tipo</p>
-          <div className="filter-scroll-options">
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Tipo 1</span>
-            </label>
+
+        {selectedFamily && (
+          <div className="filter-scroll">
+            <p className="filter-title">Selecione o Tipo</p>
+            {types.map((type: any) => (
+              <label key={type} className="filter-option">
+                <input
+                  type="checkbox"
+                  value={type}
+                  checked={selectedType === type}
+                  onChange={(e) => {
+                    const isChecked = e.target.checked;
+                    isChecked ? handleTypeChange(e) : handleUncheckType();
+                  }}
+                />
+                <span>{type}</span>
+              </label>
+            ))}
           </div>
-        </div>
-        <div className="filter-scroll">
-          <p className="filter-title">Selecione a Série</p>
-          <div className="filter-scroll-options">
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
+        )}
 
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
-            <label
-              htmlFor="filter-option-placeholder-1"
-              className="filter-option"
-            >
-              <input
-                type="checkbox"
-                name="filter-option-placeholder-1"
-                id="filter-option-placeholder-1"
-              />
-              <span>Série 0001</span>
-            </label>
+        {selectedType && (
+          <div className="filter-scroll">
+            <p className="filter-title">Selecione a Série</p>
+            {series.map((serie: any) => (
+              <label key={serie} className="filter-option">
+                <input
+                  type="checkbox"
+                  value={serie}
+                  checked={selectedSeries === serie}
+                  onChange={(e) => {
+                    const isChecked = e.target.checked;
+                    isChecked ? handleSeriesChange(e) : handleUncheckSeries();
+                  }}
+                />
+                <span>{serie}</span>
+              </label>
+            ))}
           </div>
-        </div>
-        <button className="filter-buttons">Aplicar</button>
+        )}
       </div>
     </>
   );

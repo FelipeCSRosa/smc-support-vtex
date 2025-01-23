@@ -1,8 +1,32 @@
 import React, { MouseEvent, useEffect, useState } from "react";
 import { canUseDOM } from "vtex.render-runtime";
 import "./global.css";
+import { useOrderInfosContext } from "../MainContent";
+import formatToBRL from "../../utils/formatToBRL";
 
 const Table = () => {
+  const [showPriceDetails, setShowPriceDetails] = useState(false);
+  const [priceDetailsPostion, setPriceDetailsPosition] = useState({
+    top: 0,
+    left: 0,
+  });
+
+  const { filteredProducts } = useOrderInfosContext();
+
+  useEffect(() => {
+    const handleHidePriceDetails = () => {
+      setShowPriceDetails(false);
+    };
+
+    window.addEventListener("scroll", handleHidePriceDetails);
+    window.addEventListener("resize", handleHidePriceDetails);
+
+    return () => {
+      window.removeEventListener("scroll", handleHidePriceDetails);
+      window.removeEventListener("resize", handleHidePriceDetails);
+    };
+  }, []);
+
   return (
     <>
       <div className="table-wrapper">
@@ -35,21 +59,46 @@ const Table = () => {
             <div className="table-header-item table-item-buttons" />
           </div>
           <div className="table-body">
-            <TableRow />
+            {filteredProducts?.map((product: any) => (
+              <TableRow
+                product={product}
+                setShowPriceDetails={setShowPriceDetails}
+                setPriceDetailsPosition={setPriceDetailsPosition}
+              />
+            ))}
           </div>
+          <PriceDetails
+            show={showPriceDetails}
+            setShow={setShowPriceDetails}
+            postion={priceDetailsPostion}
+          />
         </div>
       </div>
     </>
   );
 };
 
-const TableRow = () => {
+const TableRow = ({
+  product,
+  setShowPriceDetails,
+  setPriceDetailsPosition,
+}: any) => {
   const [schedulesOpen, setSchedulesOpen] = useState(false);
-  const [showPriceDetails, setShowPriceDetails] = useState(false);
-  const [priceDetailsPostion, setPriceDetailsPosition] = useState({
-    top: 0,
-    left: 0,
-  });
+
+  const { items, setItems, globalOrderCode } = useOrderInfosContext();
+
+  const {
+    produtoprotheus,
+    descricaoprotheus,
+    unidademedida,
+    prazoentrega,
+    preco,
+  } = product;
+
+  const currentItem = items.find(
+    //TODO: Change to SKU ID
+    (item: any) => item.produtoprotheus === produtoprotheus
+  );
 
   useEffect(() => {
     const handleClick = () => {
@@ -67,6 +116,121 @@ const TableRow = () => {
     };
   }, [canUseDOM]);
 
+  const calculateParcels = (quantity: number, installments: number) => {
+    if (quantity < installments) {
+      installments = quantity;
+    }
+
+    const itemsPerInstallment = Math.floor(quantity / installments);
+    const remainingItems = quantity % installments;
+
+    const handleParcels = Array(installments).fill({
+      quantity: itemsPerInstallment,
+      date: new Date(),
+    });
+
+    const updatedParcels = handleParcels.map((parcel, index) => {
+      const newDate = new Date();
+      newDate.setMonth(newDate.getMonth() + index + 1);
+      const formattedDate = newDate.toISOString().split("T")[0];
+      return {
+        ...parcel,
+        date: formattedDate,
+      };
+    });
+
+    for (let i = 0; i < remainingItems; i++) {
+      updatedParcels[i].quantity += 1;
+    }
+
+    return updatedParcels;
+  };
+
+  const handleScheduleInstallments = (scheduleInstallments: number) => {
+    setItems((prevItems: any[]) => {
+      const itemIndex = prevItems.findIndex(
+        (item) => item.produtoprotheus === produtoprotheus
+      );
+
+      const updatedItems = [...prevItems];
+
+      updatedItems[itemIndex] = {
+        ...updatedItems[itemIndex],
+        parcels: calculateParcels(
+          updatedItems[itemIndex].quantity,
+          scheduleInstallments
+        ),
+      };
+
+      return updatedItems;
+    });
+  };
+
+  const updateItems = (newQuantity: number) => {
+    setItems((prevItems: any[]) => {
+      const itemIndex = prevItems.findIndex(
+        (item) => item.produtoprotheus === produtoprotheus
+      );
+
+      if (newQuantity > 0) {
+        if (itemIndex !== -1) {
+          const updatedItems = [...prevItems];
+          updatedItems[itemIndex] = {
+            ...updatedItems[itemIndex],
+            quantity: newQuantity,
+            parcels: calculateParcels(
+              newQuantity,
+              updatedItems[itemIndex].parcels.length
+            ),
+          };
+          return updatedItems;
+        }
+
+        return [
+          ...prevItems,
+          {
+            ...product,
+            quantity: newQuantity,
+            parcels: calculateParcels(newQuantity, 1),
+          },
+        ];
+      } else {
+        if (itemIndex !== -1 && prevItems[itemIndex].code) {
+          const updatedItems = [...prevItems];
+          updatedItems[itemIndex] = {
+            ...updatedItems[itemIndex],
+            quantity: 0,
+          };
+          return updatedItems;
+        }
+
+        return prevItems.filter(
+          (item) => item.produtoprotheus !== produtoprotheus
+        );
+      }
+    });
+  };
+
+  const incrementQuantity = () => {
+    if (currentItem) {
+      updateItems(currentItem.quantity + 1);
+    } else {
+      updateItems(1);
+    }
+  };
+
+  const decrementQuantity = () => {
+    if (currentItem) {
+      updateItems(currentItem.quantity - 1);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10);
+    const newQuantity = isNaN(value) || value < 0 ? 0 : value;
+    updateItems(newQuantity);
+  };
+
   const handlePriceDetails = (e: MouseEvent) => {
     e.stopPropagation();
     const button = e.target as HTMLButtonElement;
@@ -78,17 +242,33 @@ const TableRow = () => {
     setShowPriceDetails(true);
   };
 
+  const handleItemCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    setItems((prevItems: any[]) => {
+      const itemIndex = prevItems.findIndex(
+        (item) => item.produtoprotheus === produtoprotheus
+      );
+
+      if (itemIndex !== -1) {
+        const updatedItems = [...prevItems];
+        updatedItems[itemIndex] = {
+          ...updatedItems[itemIndex],
+          code: value,
+        };
+        return updatedItems;
+      }
+
+      return [...prevItems, { ...product, code: value, quantity: 0 }];
+    });
+  };
+
   return (
     <>
-      <PriceDetails
-        show={showPriceDetails}
-        setShow={setShowPriceDetails}
-        postion={priceDetailsPostion}
-      />
       <div className="table-row-container">
         <div className="table-row-columns">
           <div className="table-row-item table-item-selected">
-            {true ? (
+            {currentItem?.quantity ? (
               <svg
                 width="16"
                 height="16"
@@ -118,7 +298,7 @@ const TableRow = () => {
             )}
           </div>
           <div className="table-row-item table-row-item-quantity table-item-quantity">
-            <button>
+            <button onClick={decrementQuantity}>
               <svg
                 width="16"
                 height="16"
@@ -136,8 +316,12 @@ const TableRow = () => {
                 />
               </svg>
             </button>
-            <input type="number" name="" id="" />
-            <button>
+            <input
+              type="number"
+              value={currentItem?.quantity || 0}
+              onChange={handleInputChange}
+            />
+            <button onClick={incrementQuantity}>
               <svg
                 width="16"
                 height="16"
@@ -160,17 +344,25 @@ const TableRow = () => {
               </svg>
             </button>
           </div>
-          <div className="table-row-item table-item-product">838051</div>
-          <div className="table-row-item table-item-partnumber">KQ2E08-00A</div>
+          <div className="table-row-item table-item-product">
+            {produtoprotheus}
+          </div>
+          <div className="table-row-item table-item-partnumber">
+            {descricaoprotheus}
+          </div>
           <div className="table-row-item table-item-description">
             Conexão Instantanea reta de latao - Pacote com 10
           </div>
-          <div className="table-row-item table-item-measurement">Metros</div>
+          <div className="table-row-item table-item-measurement">
+            {unidademedida}
+          </div>
           <div className="table-row-item table-row-item-deadline table-item-deadline">
-            15/01/2024
+            {prazoentrega}
             <button
               onClick={() => {
-                setSchedulesOpen(!schedulesOpen);
+                if (currentItem?.quantity > 0) {
+                  setSchedulesOpen(!schedulesOpen);
+                }
               }}
             >
               <span>Programar entrega</span>
@@ -189,16 +381,20 @@ const TableRow = () => {
             </button>
           </div>
           <div className="table-row-item table-row-item-price table-item-price">
-            <span>12,11</span>
+            <span>{formatToBRL(preco)}</span>
             <button onClick={(e) => handlePriceDetails(e)}>
               Detalhar Preço
             </button>
           </div>
           <div className="table-row-item table-row-item-total table-item-total">
-            121,10
+            {formatToBRL((currentItem?.quantity || 0) * preco)}
           </div>
           <div className="table-row-item table-row-item-code table-item-code">
-            <input type="text" />
+            <input
+              type="text"
+              value={currentItem?.code || globalOrderCode}
+              onChange={handleItemCodeChange}
+            />
           </div>
           <div className="table-row-item table-item-buttons">
             <button className="add-to-cart">Adicionar ao Carrinho</button>
@@ -208,20 +404,31 @@ const TableRow = () => {
         <div
           className="table-row-schedule-delivery"
           style={{
-            height: schedulesOpen ? "auto" : "0",
-            paddingBottom: schedulesOpen ? "14px" : "0",
+            height: schedulesOpen && currentItem?.quantity ? "auto" : "0",
+            paddingBottom:
+              schedulesOpen && currentItem?.quantity ? "14px" : "0",
           }}
         >
           <div className="schedule-delivery-header">
             <div className="schedule-delivery-header-select-wrapper">
               <p>Quantidade de Parcelas</p>
               <div className="schedule-delivery-header-select-container">
-                <select name="" id="">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
+                <select
+                  name=""
+                  id=""
+                  value={currentItem?.parcels.length}
+                  onChange={(e: any) =>
+                    handleScheduleInstallments(Number(e.target.value))
+                  }
+                >
+                  {Array.from(
+                    { length: Math.min(currentItem?.quantity, 5) },
+                    (_, i) => (
+                      <option key={i} value={i + 1}>
+                        {i + 1}
+                      </option>
+                    )
+                  )}
                 </select>
                 <span>
                   <svg
@@ -271,66 +478,20 @@ const TableRow = () => {
               </div>
             </div>
             <div className="schedule-delivery-table-body">
-              <div className="schedule-delivery-table-row">
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-installment">
-                  1
+              {currentItem?.parcels.map((parcel: any, index: number) => (
+                <div key={index} className="schedule-delivery-table-row">
+                  <div className="schedule-delivery-table-row-column schedule-delivery-table-column-installment">
+                    {index + 1}
+                  </div>
+                  <div className="schedule-delivery-table-row-column schedule-delivery-table-column-quantity">
+                    <input type="number" value={parcel.quantity} />
+                  </div>
+                  <div className="schedule-delivery-table-row-column schedule-delivery-table-column-date">
+                    <div className="schedule-delivery-date-background" />
+                    <input type="date" value={parcel.date} />
+                  </div>
                 </div>
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-quantity">
-                  <input type="number" />
-                </div>
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-date">
-                  <div className="schedule-delivery-date-background" />
-                  <input type="date" />
-                </div>
-              </div>
-              <div className="schedule-delivery-table-row">
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-installment">
-                  1
-                </div>
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-quantity">
-                  <input type="number" />
-                </div>
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-date">
-                  <div className="schedule-delivery-date-background" />
-                  <input type="date" />
-                </div>
-              </div>
-              <div className="schedule-delivery-table-row">
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-installment">
-                  1
-                </div>
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-quantity">
-                  <input type="number" />
-                </div>
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-date">
-                  <div className="schedule-delivery-date-background" />
-                  <input type="date" />
-                </div>
-              </div>
-              <div className="schedule-delivery-table-row">
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-installment">
-                  1
-                </div>
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-quantity">
-                  <input type="number" />
-                </div>
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-date">
-                  <div className="schedule-delivery-date-background" />
-                  <input type="date" />
-                </div>
-              </div>
-              <div className="schedule-delivery-table-row">
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-installment">
-                  1
-                </div>
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-quantity">
-                  <input type="number" />
-                </div>
-                <div className="schedule-delivery-table-row-column schedule-delivery-table-column-date">
-                  <div className="schedule-delivery-date-background" />
-                  <input type="date" />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

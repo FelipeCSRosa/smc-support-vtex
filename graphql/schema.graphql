@@ -1,5 +1,8 @@
 scalar JSON
 
 type Query {
-  Test: JSON
+  TestCondicaoPagamento: JSON
+  TestProdutosCliente: JSON
+  TestPrecoProduto: JSON
+  getCustomerProducts(cnpjcliente: String, pagina: Int, tamanhopagina: Int, familia: String, tipo: String, serie: String): JSON
 }

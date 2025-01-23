@@ -1,0 +1,3 @@
+query getCustomerProducts($cnpjcliente: String, $pagina: Int, $tamanhopagina: Int, $familia: String, $tipo: String, $serie: String) {
+  getCustomerProducts(cnpjcliente: $cnpjcliente, pagina: $pagina, tamanhopagina: $tamanhopagina, familia: $familia, tipo: $tipo, serie: $serie)
+}

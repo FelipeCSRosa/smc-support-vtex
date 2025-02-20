@@ -1,7 +1,7 @@
 {
   "vendor": "t15903",
   "name": "b2bstore",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "defaultLocale": "en-US",
   "builders": {
     "styles": "2.x",

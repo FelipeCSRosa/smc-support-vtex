@@ -1,6 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useQuery } from "react-apollo";
 import getCustomerProducts from "../../graphql/getCustomerProducts.graphql";
+//@ts-ignore
+import { useOrderForm } from "vtex.order-manager/OrderForm";
+//@ts-ignore
+import { useOrderItems } from "vtex.order-items/OrderItems";
 
 const OrderInfosContext = createContext<any>({
   items: [],
@@ -21,6 +25,10 @@ const MainContent = ({ children }: any) => {
 
   const [products, setProducts] = useState<any[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+
+  //@ts-ignore
+  const { orderForm, setOrderForm } = useOrderForm();
+  /* const { addItems } = useOrderItems(); */
 
   const { data: getCustomerProductsData } = useQuery(getCustomerProducts, {
     variables: {
@@ -56,13 +64,13 @@ const MainContent = ({ children }: any) => {
             item.produtocliente.toLowerCase().includes(searchTerm.toLowerCase())
         )
         ?.filter((item: any) =>
-          selectedFamily ? item.familia === selectedFamily : true
+          selectedFamily ? item.descricaoFamilia === selectedFamily : true
         )
         ?.filter((item: any) =>
-          selectedType ? item.tipo === selectedType : true
+          selectedType ? item.descricaoTipo === selectedType : true
         )
         ?.filter((item: any) =>
-          selectedSeries ? item.serie === selectedSeries : true
+          selectedSeries ? item.descricaoSerie === selectedSeries : true
         );
     }
 
@@ -103,6 +111,58 @@ const MainContent = ({ children }: any) => {
 
     setFilteredProducts(filteredData);
   }, [selectedFamily, selectedType, selectedSeries, searchTerm, orderBy]);
+
+  useEffect(() => {
+    const request = async () => {
+      fetch(`/api/checkout/pub/orderForm/${orderForm.id}/items/removeAll`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({}),
+      }).then((response) => {
+        if (response.ok) {
+          fetch(`/api/checkout/pub/orderForm/${orderForm.id}/items`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              orderItems: items.map((item) => ({
+                id: item.idsku.toString(),
+                quantity: item.quantity,
+                seller: "1",
+                attachments: [
+                  {
+                    name: "extra-infos",
+                    content: {
+                      "cod-compra": item.code,
+                      entrega: JSON.stringify(item.parcels),
+                    },
+                  },
+                ],
+              })),
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("data", data);
+            })
+            .catch((err) => console.error(err));
+        }
+      });
+    };
+
+    if (items.length) {
+      request();
+    }
+  }, [items]);
+
+  useEffect(() => {
+    console.log("orderForm", orderForm);
+  }, [orderForm]);
 
   return (
     <OrderInfosContext.Provider

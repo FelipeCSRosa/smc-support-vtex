@@ -47,7 +47,7 @@ const Table = () => {
               Un. Medida
             </div>
             <div className="table-header-item table-item-deadline">
-              Prazo de Entrega
+              Previzão de faturamento
             </div>
             <div className="table-header-item table-item-price">
               Preço Unitário. Sem IPI,ST - R$
@@ -90,6 +90,7 @@ const TableRow = ({
   const {
     produtoprotheus,
     descricaoprotheus,
+    descricaoSMC,
     unidademedida,
     prazoentrega,
     preco,
@@ -351,7 +352,7 @@ const TableRow = ({
             {descricaoprotheus}
           </div>
           <div className="table-row-item table-item-description">
-            Conexão Instantanea reta de latao - Pacote com 10
+            {descricaoSMC}
           </div>
           <div className="table-row-item table-item-measurement">
             {unidademedida}
@@ -397,7 +398,6 @@ const TableRow = ({
             />
           </div>
           <div className="table-row-item table-item-buttons">
-            <button className="add-to-cart">Adicionar ao Carrinho</button>
             <button className="technical-infos">Informações Técnicas</button>
           </div>
         </div>
@@ -422,7 +422,7 @@ const TableRow = ({
                   }
                 >
                   {Array.from(
-                    { length: Math.min(currentItem?.quantity, 5) },
+                    { length: Math.min(currentItem?.quantity, 12) },
                     (_, i) => (
                       <option key={i} value={i + 1}>
                         {i + 1}

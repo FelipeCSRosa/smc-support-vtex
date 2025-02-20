@@ -32,7 +32,7 @@ const FilterOrderBy = () => {
               .toLowerCase()
               .includes(searchTerm.toLowerCase())
         )
-        ?.map((item: any) => item.familia)
+        ?.map((item: any) => item.descricaoFamilia)
     ),
   ].sort();
 
@@ -48,8 +48,8 @@ const FilterOrderBy = () => {
               .toLowerCase()
               .includes(searchTerm.toLowerCase())
         )
-        ?.filter((item: any) => item.familia === selectedFamily)
-        .map((item: any) => item.tipo)
+        ?.filter((item: any) => item.descricaoFamilia === selectedFamily)
+        .map((item: any) => item.descricaoTipo)
     ),
   ].sort();
 
@@ -65,8 +65,8 @@ const FilterOrderBy = () => {
               .toLowerCase()
               .includes(searchTerm.toLowerCase())
         )
-        ?.filter((item: any) => item.tipo === selectedType)
-        .map((item: any) => item.serie)
+        ?.filter((item: any) => item.descricaoTipo === selectedType)
+        .map((item: any) => item.descricaoSerie)
     ),
   ].sort();
 

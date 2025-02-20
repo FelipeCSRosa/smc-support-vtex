@@ -1,6 +1,8 @@
 import type { InstanceOptions, IOContext } from "@vtex/api";
 import { ExternalClient } from "@vtex/api";
 
+const AUTHORIZATION_TOKEN = "dnRleDpaaG1pI1MkenJ4eXpaNjNMeEBUSA==";
+
 export default class Protheus extends ExternalClient {
   constructor(context: IOContext, options?: InstanceOptions) {
     super("http://api.smcbr.com.br:80", context, options);
@@ -14,7 +16,7 @@ export default class Protheus extends ExternalClient {
           headers: {
             "Proxy-Authorization": this.context.authToken,
             VtexIdClientAutCookie: this.context.adminUserAuthToken,
-            Authorization: "Basic dnRleDp4bCRRREJIcEBRZUo5N0wyOEYzYQ==",
+            Authorization: `Basic ${AUTHORIZATION_TOKEN}`,
           },
         }
       );
@@ -38,7 +40,7 @@ export default class Protheus extends ExternalClient {
           headers: {
             "Proxy-Authorization": this.context.authToken,
             VtexIdClientAutCookie: this.context.adminUserAuthToken,
-            Authorization: "Basic dnRleDp4bCRRREJIcEBRZUo5N0wyOEYzYQ==",
+            Authorization: `Basic ${AUTHORIZATION_TOKEN}`,
           },
         }
       );
@@ -62,7 +64,7 @@ export default class Protheus extends ExternalClient {
           headers: {
             "Proxy-Authorization": this.context.authToken,
             VtexIdClientAutCookie: this.context.adminUserAuthToken,
-            Authorization: "Basic dnRleDp4bCRRREJIcEBRZUo5N0wyOEYzYQ==",
+            Authorization: `Basic ${AUTHORIZATION_TOKEN}`,
           },
         }
       );
@@ -91,7 +93,7 @@ export default class Protheus extends ExternalClient {
           headers: {
             "Proxy-Authorization": this.context.authToken,
             VtexIdClientAutCookie: this.context.adminUserAuthToken,
-            Authorization: "Basic dnRleDp4bCRRREJIcEBRZUo5N0wyOEYzYQ==",
+            Authorization: `Basic ${AUTHORIZATION_TOKEN}`,
           },
         }
       );
